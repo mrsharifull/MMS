@@ -6,20 +6,48 @@
         </div>
         <nav class="nav navbar-nav">
         <ul class=" navbar-right">
-          <li class="nav-item dropdown open" style="padding-left: 15px;">
-            <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-              <img src="{{asset('admin/images/img.jpg')}}" alt="">John Doe
-            </a>
-            <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                <a class="dropdown-item"  href="javascript:;">
-                  <span class="badge bg-red pull-right">50%</span>
-                  <span>Settings</span>
-                </a>
-            <a class="dropdown-item"  href="javascript:;">Help</a>
-              <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-            </div>
-          </li>
+                <!-- Authentication Links -->
+                @guest
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                    @endif
+
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item dropdown open" style="padding-left: 15px;">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                          <img src="{{asset('admin/images/img.jpg')}}" alt="">{{ Auth::user()->name }}
+                        </a>
+                        <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item"  href="javascript:;"> Profile</a>
+                            <a class="dropdown-item"  href="javascript:;">
+                              <span class="badge bg-red pull-right">50%</span>
+                              <span>Settings</span>
+                            </a>
+                            <a class="dropdown-item"  href="javascript:;">Help</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                      </li>
+                @endguest
+
+
+
+
+
 
           <li role="presentation" class="nav-item dropdown open">
             <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">

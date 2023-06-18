@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
     <div class="left_col scroll-view">
       <div class="navbar nav_title" style="border: 0;">
-        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Ma Sattrabash</span></a>
+        <a href="{{route('admin.home')}}" class="site_title"><i class="fa fa-paw"></i> <span>{{ config('app.name', 'Laravel') }}</span></a>
       </div>
 
       <div class="clearfix"></div>
@@ -13,7 +13,7 @@
         </div>
         <div class="profile_info">
           <span>Welcome,</span>
-          <h2>John Doe</h2>
+          <h2>{{ Auth::user()->name }}</h2>
         </div>
       </div>
       <!-- /menu profile quick info -->
@@ -25,8 +25,8 @@
         <div class="menu_section">
           <h3>General</h3>
           <ul class="nav side-menu">
-            <li><a><i class="fa fa-home"></i> Dashboard</a></li>
-            <li><a><i class="fa fa-home"></i> User Management <span class="fa fa-chevron-down"></span></a>
+            <li><a href="{{route('admin.home')}}"><i class="fa fa-home"></i> Dashboard</a></li>
+            <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="index.html">User</a></li>
                 <li><a href="index2.html">Role</a></li>
