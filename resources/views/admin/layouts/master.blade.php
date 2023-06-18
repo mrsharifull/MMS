@@ -37,7 +37,6 @@
     <!-- Custom Theme Style -->
     <link href="{{asset('admin/build/css/custom.min.css')}}" rel="stylesheet">
     @stack('css')
-
   </head>
 
   <body class="nav-md">
@@ -106,3 +105,4 @@
 
   </body>
 </html>
+
