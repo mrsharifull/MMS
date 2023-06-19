@@ -29,6 +29,7 @@ class RolePermissionSeeder extends Seeder
         foreach($permissions as $item){
             Permission::create($item);
         }
+        $role->syncPermissions(Permission::all());
         $user = User::first();
         $user->assignRole($role);
 
