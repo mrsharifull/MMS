@@ -14,6 +14,10 @@ Auth::routes();
 
 Route::get('/', [AdminHomeController::class, 'index'])->name('admin.home');
 Route::get('/user/view', [UserController::class, 'index'])->name('user.view');
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+
+
 Route::get('/role/view', [RoleController::class, 'index'])->name('role.view');
 Route::get('/permission/view', [PermissionController::class, 'index'])->name('permission.view');
 

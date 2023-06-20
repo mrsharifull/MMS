@@ -5,14 +5,17 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Traits\HasRoles;
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasRoles;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -23,6 +26,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'created_by',
+        'created_at',
     ];
 
     /**
@@ -44,4 +50,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function created_user(){
+        return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+    public function updated_user(){
+        return $this->belongsTo(User::class, 'updated_by', 'id');
+    }
+    public function deleted_user(){
+        return $this->belongsTo(User::class, 'deleted_by', 'id');
+    }
 }

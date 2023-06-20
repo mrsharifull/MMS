@@ -14,11 +14,23 @@
 @endpush
 @section('content')
     <div class="col-md-12 col-sm-12 ">
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="x_panel">
             <div class="x_title">
                 <h2>All Users</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><button class="btn btn-info">Add User</button>
+                    <li><a href='{{route('user.create')}}'><button class="btn btn-info">Add User</button></a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -36,6 +48,7 @@
                                         <th>SL</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Role</th>
                                         <th>Created At</th>
                                         <th>Created By</th>
                                         <th>Action</th>
@@ -47,6 +60,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>{{ $user->role->name }}</td>
                                             <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
                                             <td>{{ $user->created_user->name ?? 'system' }}</td>
                                             <td>
