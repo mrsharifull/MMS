@@ -21,27 +21,25 @@ class RoleRequest extends FormRequest
      */
     public function rules(): array
     {
-        // common validations
-        return [
-            'name' => "required | string|max:255",
+        $rules = [
+            'name' => 'required',
             'permission' => 'required',
         ];
-        ($this->isMethod('POST') ? $this->store() : $this->update());
+
+        if ($this->isMethod('POST')) {
+            $rules['name'] .= '|unique:roles,name';
+        } else {
+            $id = $this->route('id');
+            $rules['name'] .= '|unique:roles,name,' . $id."id";
+        }
+
+        return $rules;
     }
-    public function attributes(){
+    public function attributes()
+    {
         return [
             'name' => 'Role Name',
-            'Permission' => 'User Permission',
-        ];
-    }
-    protected function store(){
-        return[
-            'name' => "unique:roles,name",
-        ];
-    }
-    protected function update(){
-        return[
-            'name' => "unique:roles,name,id,".$id,
+            'permission' => 'User Permission',
         ];
     }
 }

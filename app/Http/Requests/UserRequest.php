@@ -21,32 +21,30 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        // common validations
-        return [
+        $rules = [
             'name' => 'required|string|max:255',
             'email' => 'required',
             'role_id' => 'required',
         ];
-        ($this->isMethod('POST') ? $this->store() : $this->update());
+
+        if ($this->isMethod('POST')) {
+            $rules['email'] .= "|unique:users,email";
+            $rules['password'] = "required|string|max:255";
+        } else {
+            $id = $this->route('id');
+            $rules['email'] .= "|unique:users,email,".$id."id";
+            $rules['password'] = "nullable";
+        }
+
+        return $rules;
     }
-    public function attributes(){
+    public function attributes()
+    {
         return [
-            'name' => 'User Name',
-            'email' => 'User Email',
-            'role_id' => 'User Role',
-            'password' => 'User Password',
-        ];
-    }
-    protected function store(){
-        return[
-            'email' => 'unique:users,email',
-            'password' => 'required|string|max:255',
-        ];
-    }
-    protected function update(){
-        return[
-            'email' => 'unique:users,email,'.$request->id.',id,deleted_at,NULL',
-            'password' => 'nullable',
+            'name' => 'user name',
+            'email' => 'user email',
+            'role_id' => 'user role',
+            'password' => 'user password',
         ];
     }
 }

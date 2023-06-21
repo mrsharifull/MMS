@@ -43,9 +43,9 @@ class RoleController extends Controller
     }
     public function update(RoleRequest $request ,$id){
         $role = Role::findOrFail($id);
-        // if($role->name != $request->name){
-        //     $this->validate($request, ['name' => "required|unique:roles,name|string|max:255".$id.'id']);
-        // }
+        if($role->name != $request->name){
+            $this->validate($request, ['name' => "required|unique:roles,name|string|max:255".$id]);
+        }
         $role->name = $request->name;
         $role->updated_at = Carbon::now()->toDateTimeString();
         $role->updated_by = auth()->user()->id;

@@ -21,28 +21,25 @@
             <br />
             <form class="form-horizontal form-label-left" action="{{route('permission.update',$permission->id)}}" method="POST">
                 @csrf
+                @method('PUT')
 
                 <div class="form-group row ">
                     <label class="control-label col-md-3 col-sm-3 ">Display Name<span class="text-danger">*</span></label>
                     <div class="col-md-9 col-sm-9 ">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Enter display name" name="name" value="{{ $permission->name }}" required autofocus>
+                        <input type="text" class="form-control" placeholder="Enter display name" name="name" value="{{ $permission->name }}" required autofocus>
                     </div>
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('name'))
+                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
                 </div>
                 <div class="form-group row ">
                     <label class="control-label col-md-3 col-sm-3 ">Prefix<span class="text-danger">*</span></label>
                     <div class="col-md-9 col-sm-9 ">
-                        <input type="text" class="form-control @error('prefix') is-invalid @enderror" placeholder="Enter prefix" name="prefix" value="{{ $permission->prefix}}" required autofocus>
+                        <input type="text" class="form-control" placeholder="Enter prefix" name="prefix" value="{{ $permission->prefix}}" required autofocus>
                     </div>
-                    @error('prefix')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('prefix'))
+                        <span class="text-danger">{{ $errors->first('prefix') }}</span>
+                    @endif
                 </div>
 
                 <div class="ln_solid"></div>

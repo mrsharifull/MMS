@@ -10,7 +10,7 @@
         <div class="x_title">
             <h2>Add Role</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a href='{{route('role.view')}}'><button class="btn btn-info">All Roles</button></a>
+                <li><a href="{{route('role.view')}}"><button class="btn btn-info">All Roles</button></a>
                 </li>
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -25,13 +25,11 @@
                 <div class="form-group row ">
                     <label class="control-label col-md-3 col-sm-3 ">Name<span class="text-danger">*</span></label>
                     <div class="col-md-9 col-sm-9 ">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Enter name" name="name" value="{{ old('name') }}" required autofocus>
+                        <input type="text" class="form-control" placeholder="Enter name" name="name" value="{{ old('name') }}" required autofocus>
                     </div>
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('name'))
+                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group row">

@@ -34,7 +34,7 @@ class PermissionController extends Controller
             return view('admin.user.permission.edit', $n);
         }
     }
-    public function update(Request $request, $id){
+    public function update(PermissionRequest $request, $id){
         $permission = CustomPermission::findOrFail($id);
         $permission->name = $request->name;
         $permission->prefix = $request->prefix;

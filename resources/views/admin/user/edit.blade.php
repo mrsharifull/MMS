@@ -10,7 +10,7 @@
         <div class="x_title">
             <h2>Edit User</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a href='{{route('user.view')}}'><button class="btn btn-info">All User</button></a>
+                <li><a href="{{route('user.view')}}"><button class="btn btn-info">All User</button></a>
                 </li>
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -21,30 +21,27 @@
             <br />
             <form class="form-horizontal form-label-left" action="{{route('user.update',$user->id)}}" method="POST">
                 @csrf
+                @method('PUT')
 
                 <div class="form-group row ">
                     <label class="control-label col-md-3 col-sm-3 ">Name</label>
                     <div class="col-md-9 col-sm-9 ">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="Enter name" name="name" value="{{ $user->name }}" required autofocus>
+                        <input type="text" class="form-control" placeholder="Enter name" name="name" value="{{ $user->name }}" required autofocus>
                     </div>
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('name'))
+                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
                 </div>
                 <div class="form-group row ">
                     <label class="control-label col-md-3 col-sm-3 ">Email</label>
                     <div class="col-md-9 col-sm-9 ">
                         <input type="email"
-                                class="form-control @error('email') is-invalid @enderror"
+                                class="form-control"
                                 placeholder="Enter email" name="email" value="{{ $user->email }}" required>
                     </div>
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('email'))
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                    @endif
                 </div>
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 ">Role</label>
@@ -55,24 +52,20 @@
                             @endforeach
                         </select>
                     </div>
-                    @error('role_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('role_id'))
+                        <span class="text-danger">{{ $errors->first('role_id') }}</span>
+                    @endif
                 </div>
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 ">Password</label>
                     <div class="col-md-9 col-sm-9 ">
                         <input type="password"
-                                class="form-control @error('password') is-invalid @enderror"
+                                class="form-control"
                                 placeholder="Enter password" name="password">
                     </div>
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('password'))
+                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                    @endif
                 </div>
 
 

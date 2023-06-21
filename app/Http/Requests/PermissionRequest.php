@@ -21,27 +21,25 @@ class PermissionRequest extends FormRequest
      */
     public function rules(): array
     {
-        // common validations
-        return [
+        $rules = [
             'name' => 'required|string|max:255',
             'prefix' => 'required|string|max:255',
         ];
-        ($this->isMethod('POST') ? $this->store() : $this->update());
+
+        if ($this->isMethod('POST')) {
+            $rules['name'] .= "|unique:permissions,name";
+        } else {
+            $id = $this->route('id');
+            $rules['name'] .= '|unique:permissions,name,'.$id."id";
+        }
+
+        return $rules;
     }
-    public function attributes(){
+    public function attributes()
+    {
         return [
-            'name' => 'Permission Name',
-            'prefix' => 'Permission Prefix',
-        ];
-    }
-    protected function store(){
-        return[
-            'name' => "unique:permissions,name",
-        ];
-    }
-    protected function update(){
-        return[
-            'name' => 'unique:permissions,name,id,'.$id,
+            'name' => 'permission name',
+            'prefix' => 'permission prefix',
         ];
     }
 }
