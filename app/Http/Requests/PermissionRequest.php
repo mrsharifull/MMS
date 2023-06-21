@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoleRequest extends FormRequest
+class PermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,25 +23,25 @@ class RoleRequest extends FormRequest
     {
         // common validations
         return [
-            'name' => "required | string|max:255",
-            'permission' => 'required',
+            'name' => 'required|string|max:255',
+            'prefix' => 'required|string|max:255',
         ];
         ($this->isMethod('POST') ? $this->store() : $this->update());
     }
     public function attributes(){
         return [
-            'name' => 'Role Name',
-            'Permission' => 'User Permission',
+            'name' => 'Permission Name',
+            'prefix' => 'Permission Prefix',
         ];
     }
     protected function store(){
         return[
-            'name' => "unique:roles,name",
+            'name' => "unique:permissions,name",
         ];
     }
     protected function update(){
         return[
-            'name' => "unique:roles,name,id,".$id,
+            'name' => 'unique:permissions,name,id,'.$id,
         ];
     }
 }

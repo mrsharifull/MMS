@@ -25,13 +25,11 @@
                 <div class="form-group row ">
                     <label class="control-label col-md-3 col-sm-3 ">Name<span class="text-danger">*</span></label>
                     <div class="col-md-9 col-sm-9 ">
-                        <input type="text" class="form-control @error('name') is-invalid @enderror" value="{{ $role->name }}" placeholder="Enter name" name="name" required autofocus>
+                        <input type="text" class="form-control" value="{{ $role->name }}" placeholder="Enter name" name="name" required autofocus>
                     </div>
-                    @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    @if ($errors->has('permission'))
+                        <span class="text-danger">{{ $errors->first('permission') }}</span>
+                    @endif
                 </div>
 
                 <div class="form-group row">

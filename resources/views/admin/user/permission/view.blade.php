@@ -14,11 +14,24 @@
 @endpush
 @section('content')
     <div class="col-md-12 col-sm-12 ">
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="x_panel">
             <div class="x_title">
                 <h2>All Users</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><button class="btn btn-info">Add Permission</button>
+                    <li>
+                        <a href="{{route('permission.create')}}"><button class="btn btn-info">Add Permission</button></a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -34,7 +47,8 @@
                                 <thead>
                                     <tr>
                                         <th>SL</th>
-                                        <th>Name</th>
+                                        <th>Display Name</th>
+                                        <th>Prefix</th>
                                         <th>Created At</th>
                                         <th>Created By</th>
                                         <th>Action</th>
@@ -45,15 +59,16 @@
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $permission->name }}</td>
+                                            <td>{{ $permission->prefix }}</td>
                                             <td>{{ date('d-m-Y', strtotime($permission->created_at)) }}</td>
                                             <td>{{ $permission->created_user->name ?? 'system' }}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a href="javascript:void(0)" class="btn btn-info btnView"
                                                         data-id=""><i class="fa fa-eye"></i></a>
-                                                    <a href="" class="btn btn-dark btnEdit"><i
+                                                    <a href="{{route('permission.edit',$permission->id)}}" class="btn btn-dark btnEdit"><i
                                                             class="fa fa-edit"></i></a>
-                                                    <a href="" class="btn btn-danger btnDelete"><i
+                                                    <a href="{{route('permission.delete',$permission->id)}}" class="btn btn-danger btnDelete"><i
                                                             class="fa fa-trash"></i></a>
                                                 </div>
                                             </td>

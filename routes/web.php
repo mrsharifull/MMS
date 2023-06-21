@@ -38,6 +38,11 @@ Route::group(['as' => 'role.', 'prefix' => '/user/role'], function () {
 // User Permission Routes
 Route::group(['as' => 'permission.', 'prefix' => '/user/permission'], function () {
     Route::get('/view', [PermissionController::class, 'index'])->name('view');
+    Route::get('/create', [PermissionController::class, 'create'])->name('create');
+    Route::post('/store', [PermissionController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [PermissionController::class, 'edit'])->name('edit');
+    Route::post('/update/{id}', [PermissionController::class, 'update'])->name('update');
+    Route::get('/delete/{id}', [PermissionController::class, 'delete'])->name('delete');
 
     // Route::get('/permission/add', [UserController::class, 'permission_add'])->name('users.permission.add');
     // Route::post('/permission/store', [UserController::class, 'permission_store'])->name('users.permission.store');
