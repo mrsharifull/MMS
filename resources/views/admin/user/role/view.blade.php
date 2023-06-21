@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'My Dashboad')
+@section('title', 'User Role')
 @push('third-party-stylesheet')
     <!-- Datatables -->
     <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -28,9 +28,9 @@
 
         <div class="x_panel">
             <div class="x_title">
-                <h2>All Users</h2>
+                <h2>User Roles</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><a href='{{route('user.create')}}'><button class="btn btn-info">Add User</button></a>
+                    <li><a href='{{route('role.create')}}'><button class="btn btn-info">Add Role</button></a>
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -47,29 +47,25 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
                                         <th>Created At</th>
                                         <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($users as $key => $user)
+                                    @forelse($roles as $key => $role)
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role->name }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
-                                            <td>{{ $user->created_user->name ?? 'system' }}</td>
+                                            <td>{{ $role->name }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($role->created_at)) }}</td>
+                                            <td>{{ $role->created_user->name ?? 'system' }}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a href="javascript:void(0)" class="btn btn-info btnView"
                                                         data-id=""><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('user.edit',$user->id)}}" class="btn btn-dark btnEdit"><i
+                                                    <a href="{{ route('role.edit', $role->id) }}" class="btn btn-dark btnEdit"><i
                                                             class="fa fa-edit"></i></a>
-                                                    <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger btnDelete"><i
+                                                    <a href="{{ route('role.delete', $role->id) }}" class="btn btn-danger btnDelete"><i
                                                             class="fa fa-trash"></i></a>
                                                 </div>
                                             </td>

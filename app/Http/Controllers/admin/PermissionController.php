@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Models\CustomPermission;
 
 class PermissionController extends Controller
 {
@@ -14,7 +15,7 @@ class PermissionController extends Controller
         $this->middleware('auth');
     }
     public function index(){
-        $data['permissions']= Permission::latest()->get();
-        return view('admin.permission.view',$data);
+        $n['permissions'] = CustomPermission::with(['created_user'])->where('deleted_at', null)->latest()->get();
+        return view('admin.permission.view',$n);
     }
 }

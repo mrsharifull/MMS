@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class RoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,8 @@ class UserRequest extends FormRequest
     {
         // common validations
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required',
-            'role_id' => 'required',
+            'name' => 'required',
+            'permission' => 'required',
         ];
         ($this->isMethod('POST') ? $this->store() : $this->update());
     }
@@ -39,14 +38,12 @@ class UserRequest extends FormRequest
     }
     protected function store(){
         return[
-            'email' => 'unique:users,email',
-            'password' => 'required|string|max:255',
+            'name' => 'unique:roles,name|string|max:255',
         ];
     }
     protected function update(){
         return[
-            'email' => 'unique:users,email,'.$request->id.',id,deleted_at,NULL',
-            'password' => 'nullable',
+
         ];
     }
 }
