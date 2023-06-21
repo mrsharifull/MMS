@@ -37,7 +37,7 @@
                     <div class="col-md-9 col-sm-9 ">
                         <input type="email"
                                 class="form-control"
-                                placeholder="Enter email" name="email" value="{{ $user->email }}" required>
+                                placeholder="Enter email" name="email" value="{{ $user->email }}" required autofocus>
                     </div>
                     @if ($errors->has('email'))
                         <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -46,7 +46,7 @@
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 ">Role</label>
                     <div class="col-md-9 col-sm-9 ">
-                        <select class="form-control" name='role_id'>
+                        <select class="form-control" name='role_id' required>
                             @foreach ($roles as $role)
                                 <option value="{{ $role->id }}" @if($user->role_id == $role->id) selected @endif >{{ $role->name }}</option>
                             @endforeach

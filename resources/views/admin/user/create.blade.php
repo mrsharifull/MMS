@@ -45,7 +45,7 @@
                 <div class="form-group row">
                     <label class="control-label col-md-3 col-sm-3 ">Role</label>
                     <div class="col-md-9 col-sm-9 ">
-                        <select class="form-control" name='role_id'>
+                        <select class="form-control" name='role_id' required>
                             <option selected disabled>Select Role</option>
                             @foreach ($roles as $role)
                             <option value="{{$role->id}}">{{$role->name}}</option>
