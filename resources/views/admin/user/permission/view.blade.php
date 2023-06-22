@@ -31,7 +31,9 @@
                 <h2>All Users</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li>
-                        <a href="{{route('permission.create')}}"><button class="btn btn-info">Add Permission</button></a>
+                        @if (Auth::user()->can('add permission') || Auth::user()->role->id == 1)
+                            <a href="{{route('permission.create')}}"><button class="btn btn-info">Add Permission</button></a>
+                        @endif
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -66,10 +68,14 @@
                                                 <div class="btn-group">
                                                     <a href="javascript:void(0)" class="btn btn-info btnView"
                                                         data-id=""><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('permission.edit',$permission->id)}}" class="btn btn-dark btnEdit"><i
+                                                    @if (Auth::user()->can('edit permission') || Auth::user()->role->id == 1)
+                                                        <a href="{{route('permission.edit',$permission->id)}}" class="btn btn-dark btnEdit"><i
                                                             class="fa fa-edit"></i></a>
-                                                    <a href="{{route('permission.delete',$permission->id)}}" class="btn btn-danger btnDelete"><i
+                                                    @endif
+                                                    @if (Auth::user()->can('delete permission') || Auth::user()->role->id == 1)
+                                                        <a href="{{route('permission.delete',$permission->id)}}" class="btn btn-danger btnDelete"><i
                                                             class="fa fa-trash"></i></a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

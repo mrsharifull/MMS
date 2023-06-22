@@ -30,7 +30,10 @@
             <div class="x_title">
                 <h2>All Users</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li><a href='{{route('user.create')}}'><button class="btn btn-info">Add User</button></a>
+                    <li>
+                        @if (Auth::user()->can('add user') || Auth::user()->role->id == 1)
+                            <a href='{{route('user.create')}}'><button class="btn btn-info">Add User</button></a>
+                        @endif
                     </li>
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -67,10 +70,14 @@
                                                 <div class="btn-group">
                                                     <a href="javascript:void(0)" class="btn btn-info btnView"
                                                         data-id=""><i class="fa fa-eye"></i></a>
-                                                    <a href="{{route('user.edit',$user->id)}}" class="btn btn-dark btnEdit"><i
+                                                    @if (Auth::user()->can('edit user') || Auth::user()->role->id == 1)
+                                                        <a href="{{route('user.edit',$user->id)}}" class="btn btn-dark btnEdit"><i
                                                             class="fa fa-edit"></i></a>
-                                                    <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger btnDelete"><i
+                                                    @endif
+                                                    @if (Auth::user()->can('delete user') || Auth::user()->role->id == 1)
+                                                        <a href="{{route('user.delete',$user->id)}}" class="btn btn-danger btnDelete"><i
                                                             class="fa fa-trash"></i></a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

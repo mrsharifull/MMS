@@ -15,7 +15,7 @@ Auth::routes();
 Route::get('/', [AdminHomeController::class, 'index'])->name('admin.home');
 
 // User Routes
-Route::group(['as' => 'user.', 'prefix' => '/user'], function () {
+Route::group(['as' => 'user.', 'prefix' => '/user/info'], function () {
     Route::get('/view', [UserController::class, 'index'])->name('view');
     Route::get('/create', [UserController::class, 'create'])->name('create');
     Route::post('/store', [UserController::class, 'store'])->name('store');

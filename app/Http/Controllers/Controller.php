@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class Controller extends BaseController
 {
@@ -19,12 +20,12 @@ class Controller extends BaseController
         }
     }
 
-    // public function check_access($access){
-    //     if(auth()->user()->can($access) || Auth::user()->role->id == 1){
-    //         return true;
-    //     }else{
-    //         return abort(401);
-    //     }
+    public function check_access($access){
+        if(auth()->user()->can($access) || Auth::user()->role->id == 1){
+            return true;
+        }else{
+            return abort(401);
+        }
 
-    // }
+    }
 }

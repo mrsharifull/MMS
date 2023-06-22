@@ -10,7 +10,10 @@
         <div class="x_title">
             <h2>Edit Role</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a href="{{route('role.view')}}"><button class="btn btn-info">All Roles</button></a>
+                <li>
+                    @if (Auth::user()->can('view role') || Auth::user()->role->id == 1)
+                        <a href="{{route('role.view')}}"><button class="btn btn-info">All Roles</button></a>
+                    @endif
                 </li>
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
@@ -46,10 +49,10 @@
                                 <div class="col-sm-12">
                                     <h4>
                                         @if($key <1)
-                                        {{ucwords($value->prefix)}}
+                                            {{ucwords($value->prefix)}}
                                         @endif
                                     </h2>
-                                    <label class="ml-4">{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name', $checked)) }} {{ $value->name }}</label><br>
+                                    <label class="ml-5">{{ Form::checkbox('permission[]', $value->id, false, array('class' => 'name', $checked)) }} {{ $value->name }}</label><br>
                                 </div>
                             @endforeach
                         @endforeach

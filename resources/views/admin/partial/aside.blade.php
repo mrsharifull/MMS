@@ -26,13 +26,27 @@
           <h3>General</h3>
           <ul class="nav side-menu">
             <li><a href="{{route('admin.home')}}"><i class="fa fa-home"></i> Dashboard</a></li>
-            <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
-              <ul class="nav child_menu">
-                <li><a href="{{route('user.view')}}">User</a></li>
-                <li><a href="{{route('role.view')}}">Role</a></li>
-                <li><a href="{{route('permission.view')}}">Permission</a></li>
-              </ul>
-            </li>
+            @if (Auth::user()->hasAnyPermission(['view user','view role','view permission']) || Auth::user()->role->id == 1)
+                <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu {{ Request::is('user/*') ? 'd-block' : '' }}">
+                    @if (Auth::user()->can('view user') || Auth::user()->role->id == 1)
+                        <li class="{{ Request::is('user/info/*') ? 'current-page' : '' }}">
+                            <a href="{{route('user.view')}}">User</a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->can('view role') || Auth::user()->role->id == 1)
+                        <li class="{{ Request::is('user/role/*') ? 'current-page' : '' }}" >
+                            <a href="{{route('role.view')}}">Role</a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->can('view permission') || Auth::user()->role->id == 1)
+                        <li class="{{ Request::is('user/permission/*') ? 'current-page' : '' }}">
+                            <a href="{{route('permission.view')}}">Permission</a>
+                        </li>
+                    @endif
+                </ul>
+                </li>
+            @endif
             {{-- <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
               <ul class="nav child_menu">
                 <li><a href="form.html">General Form</a></li>

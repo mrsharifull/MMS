@@ -10,7 +10,10 @@
         <div class="x_title">
             <h2>Add Role</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a href="{{route('role.view')}}"><button class="btn btn-info">All Roles</button></a>
+                <li>
+                    @if (Auth::user()->can('view role') || Auth::user()->role->id == 1)
+                        <a href="{{route('role.view')}}"><button class="btn btn-info">All Roles</button></a>
+                    @endif
                 </li>
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>

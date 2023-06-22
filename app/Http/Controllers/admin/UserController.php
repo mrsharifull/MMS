@@ -9,6 +9,7 @@ use App\Http\Requests\UserRequest;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -17,14 +18,17 @@ class UserController extends Controller
         $this->middleware('auth');
     }
     public function index(){
+        $this->check_access('view user');
         $n['users']= User::with(['created_user','role'])->where('deleted_at', null)->latest()->get();
         return view('admin.user.view',$n);
     }
     public function create(){
+        $this->check_access('add user');
         $n['roles'] = Role::where('deleted_at', null)->latest()->get();
         return view('admin.user.create',$n);
     }
     public function store(UserRequest $request){
+        $this->check_access('add user');
         $insert = new User;
         $insert->name = $request->name;
         $insert->email = $request->email;
@@ -37,6 +41,7 @@ class UserController extends Controller
         return redirect()->route('user.view');
     }
     public function edit($id=null){
+        $this->check_access('edit user');
         if($id!=null){
             $n['roles'] = Role::where('deleted_at', null)->latest()->get();
             $n['user'] = User::with(['created_user', 'updated_user', 'deleted_user'])->where('deleted_at', null)->where('id', $id)->first();
@@ -44,6 +49,7 @@ class UserController extends Controller
         }
     }
     public function update(UserRequest $request, $id){
+        $this->check_access('edit user');
         $user = User::findOrFail($id);
         if($user->email != $request->email){
             $this->validate($request, [ 'email' => 'required|unique:users,email|email|max:255']);
@@ -66,6 +72,7 @@ class UserController extends Controller
         return redirect()->route('user.view');
     }
     public function delete($id=null){
+        $this->check_access('delete user');
         if($id != null){
             $user = User::findOrFail($id);
             $user->deleted_at = Carbon::now()->toDateTimeString();
